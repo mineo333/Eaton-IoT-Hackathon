@@ -1,0 +1,21 @@
+{
+    "project_name":       "bootloader",
+    "project_path":       "/Users/sharad/.platformio/packages/framework-espidf/components/bootloader/subproject",
+    "build_dir":          "/Users/sharad/Documents/PlatformIO/Projects/Eaton_Hackathon/Eaton/.pio/build/esp32doit-devkit-v1/bootloader",
+    "config_file":        "/Users/sharad/Documents/PlatformIO/Projects/Eaton_Hackathon/Eaton/sdkconfig.esp32doit-devkit-v1",
+    "config_defaults":    "",
+    "app_elf":            "bootloader.elf",
+    "app_bin":            "bootloader.bin",
+    "git_revision":       "4.4.2",
+    "target":             "esp32",
+    "rev":                "0",
+    "phy_data_partition": "",
+    "monitor_baud" :      "115200",
+    "monitor_toolprefix": "xtensa-esp32-elf-",
+    "config_environment" : {
+        "COMPONENT_KCONFIGS" : "/Users/sharad/.platformio/packages/framework-espidf/components/efuse/Kconfig;/Users/sharad/.platformio/packages/framework-espidf/components/esp32/Kconfig;/Users/sharad/.platformio/packages/framework-espidf/components/esp_common/Kconfig;/Users/sharad/.platformio/packages/framework-espidf/components/esp_hw_support/Kconfig;/Users/sharad/.platformio/packages/framework-espidf/components/esp_system/Kconfig;/Users/sharad/.platformio/packages/framework-espidf/components/freertos/Kconfig;/Users/sharad/.platformio/packages/framework-espidf/components/hal/Kconfig;/Users/sharad/.platformio/packages/framework-espidf/components/log/Kconfig;/Users/sharad/.platformio/packages/framework-espidf/components/newlib/Kconfig;/Users/sharad/.platformio/packages/framework-espidf/components/spi_flash/Kconfig",
+        "COMPONENT_KCONFIGS_PROJBUILD" : "/Users/sharad/.platformio/packages/framework-espidf/components/bootloader/Kconfig.projbuild;/Users/sharad/.platformio/packages/framework-espidf/components/esp_rom/Kconfig.projbuild;/Users/sharad/.platformio/packages/framework-espidf/components/esptool_py/Kconfig.projbuild;/Users/sharad/.platformio/packages/framework-espidf/components/partition_table/Kconfig.projbuild"
+    },
+    "build_components" : [ "bootloader", "bootloader_support", "efuse", "esp32", "esp_common", "esp_hw_support", "esp_rom", "esp_system", "esptool_py", "freertos", "hal", "log", "main", "micro-ecc", "newlib", "partition_table", "soc", "spi_flash", "xtensa", "" ],
+    "build_component_paths" : [ "/Users/sharad/.platformio/packages/framework-espidf/components/bootloader", "/Users/sharad/.platformio/packages/framework-espidf/components/bootloader_support", "/Users/sharad/.platformio/packages/framework-espidf/components/efuse", "/Users/sharad/.platformio/packages/framework-espidf/components/esp32", "/Users/sharad/.platformio/packages/framework-espidf/components/esp_common", "/Users/sharad/.platformio/packages/framework-espidf/components/esp_hw_support", "/Users/sharad/.platformio/packages/framework-espidf/components/esp_rom", "/Users/sharad/.platformio/packages/framework-espidf/components/esp_system", "/Users/sharad/.platformio/packages/framework-espidf/components/esptool_py", "/Users/sharad/.platformio/packages/framework-espidf/components/freertos", "/Users/sharad/.platformio/packages/framework-espidf/components/hal", "/Users/sharad/.platformio/packages/framework-espidf/components/log", "/Users/sharad/.platformio/packages/framework-espidf/components/bootloader/subproject/main", "/Users/sharad/.platformio/packages/framework-espidf/components/bootloader/subproject/components/micro-ecc", "/Users/sharad/.platformio/packages/framework-espidf/components/newlib", "/Users/sharad/.platformio/packages/framework-espidf/components/partition_table", "/Users/sharad/.platformio/packages/framework-espidf/components/soc", "/Users/sharad/.platformio/packages/framework-espidf/components/spi_flash", "/Users/sharad/.platformio/packages/framework-espidf/components/xtensa", "" ]
+}
