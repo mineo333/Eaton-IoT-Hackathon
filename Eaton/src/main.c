@@ -14,18 +14,6 @@
 
 
 
-// esp_err_t startWifi(wifi_init_config_t* wifi_conf){
-//     *wifi_conf = WIFI_INIT_CONFIG_DEFAULT(); //ensure that the default value is used. 
-//     esp_err_t err = ESP_OK;
-
-
-
-
-
-//     return err;
-// }
-
-
 void app_main()
 {
    wifi_init_config_t wifi_conf = WIFI_INIT_CONFIG_DEFAULT();
@@ -43,11 +31,7 @@ void app_main()
     vTaskDelay(1000 / portTICK_PERIOD_MS);
     
     ESP_ERROR_CHECK(esp_wifi_init(&wifi_conf));
-   /* if(err != ESP_OK){
-        printf("Failed to init wifi\n");
-        vTaskDelay(1000 / portTICK_PERIOD_MS);
-        goto reset;
-    }*/
+
 
     printf("Starting Wifi in Station Mode\n");
 
@@ -57,11 +41,6 @@ void app_main()
 
     ESP_ERROR_CHECK(esp_wifi_scan_start(&scan, true)); //scan
 
-    /* if(err != ESP_OK){
-        printf("Wifi Scan Failed\n");
-        vTaskDelay(1000 / portTICK_PERIOD_MS);
-        goto reset;
-    }*/
 
     printf("Getting the number of APs\n");
 
@@ -69,11 +48,6 @@ void app_main()
 
     printf("num_ap: %u\n", num_ap);
 
-    // if(err != ESP_OK){
-    //     printf("Failed to retrieve ap_num\n");
-    //     vTaskDelay(1000 / portTICK_PERIOD_MS);
-    //     goto reset;
-    // }
 
     wifi_ap_record_t* records = malloc(num_ap * sizeof(wifi_ap_record_t));
 
@@ -85,11 +59,6 @@ void app_main()
     printf("Getting AP Records\n");
     ESP_ERROR_CHECK(esp_wifi_scan_get_ap_records(&num_ap, records));
 
-    // if(err != ESP_OK){
-    //     printf("Failed to retrieve AP Records\n");
-    //     vTaskDelay(1000 / portTICK_PERIOD_MS);
-    //     goto reset; 
-    // }
 
 
     vTaskDelay(1000 / portTICK_PERIOD_MS);
