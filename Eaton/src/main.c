@@ -27,49 +27,14 @@ void app_main()
     printf("Initializing NVS\n");
 
     ESP_ERROR_CHECK(nvs_flash_init());
-    printf("Entering Wifi Scanner\n");
-    vTaskDelay(1000 / portTICK_PERIOD_MS);
     
+    printf("Initialize Wifi\n");
     ESP_ERROR_CHECK(esp_wifi_init(&wifi_conf));
-
-
     printf("Starting Wifi in Station Mode\n");
-
     ESP_ERROR_CHECK(esp_wifi_start());
 
-    printf("Scanning Wifi\n");
+    
 
-    ESP_ERROR_CHECK(esp_wifi_scan_start(&scan, true)); //scan
-
-
-    printf("Getting the number of APs\n");
-
-    ESP_ERROR_CHECK(esp_wifi_scan_get_ap_num(&num_ap)); //get number of ap
-
-    printf("num_ap: %u\n", num_ap);
-
-
-    wifi_ap_record_t* records = malloc(num_ap * sizeof(wifi_ap_record_t));
-
-    if(!records){
-        printf("Failed to allocate space for records\n");
-        goto reset;
-    }
-
-    printf("Getting AP Records\n");
-    ESP_ERROR_CHECK(esp_wifi_scan_get_ap_records(&num_ap, records));
-
-
-
-    vTaskDelay(1000 / portTICK_PERIOD_MS);
-
-    for(uint16_t i = 0; i<num_ap; i++){
-        printf("%s\n", (char*)&records[i].ssid);
-    }
-
-    free(records);
-
-    printf("Stopping Wifi\n");
     ESP_ERROR_CHECK(esp_wifi_stop());
     printf("Deinitializing Wifi\n");
     ESP_ERROR_CHECK(esp_wifi_deinit()); //surely this doesn't fail :)
