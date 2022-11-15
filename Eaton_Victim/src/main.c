@@ -1,6 +1,5 @@
 /*
-* Assume this is a compromised device with arbitrary code execution. 
-* Assume peers are already initialized. So, we do not have to worry about ESP-NOW encryption or other issues
+* This is a simple example of code that the 
 * 
 */
 #include "esp_spi_flash.h"
@@ -16,13 +15,17 @@
 
 const uint8_t peer_addr[] = {0xff, 0xff, 0xff, 0xff, 0xff, 0xff};
 
-void fuzz() {
-  //construct random data
-  uint8_t* random = malloc(50);
-  esp_fill_random(random, 50); 
-  ESP_ERROR_CHECK(esp_now_send(NULL, random, sizeof(random)));
-  free(random);
-  //NOTE: in a real comprimised environment, peer would be NULL as we would send it to all paired peers
+void attack_success(){
+    printf("Reached Buffer Overflow Target!");
+}
+
+void recv_cb(const uint8_t *mac_addr, const uint8_t *data, int data_len){ 
+
+    char buf[8];
+    printf("MAC: %x:%x:%x:%x:%x:%x\n", mac_addr[0], mac_addr[1], mac_addr[2], mac_addr[3], mac_addr[4], mac_addr[5]);
+
+    memcpy(buf, data, data_len); //induce a buffer overflow 
+
 }
 
 void app_main() {
@@ -39,6 +42,8 @@ void app_main() {
 
   printf("Initializing NVS\n");
 
+  printf("attack_success addr: %lx", (unsigned long)attack_success);
+
   ESP_ERROR_CHECK(nvs_flash_init());
 
   printf("Initialize Wifi\n");
@@ -47,17 +52,22 @@ void app_main() {
   ESP_ERROR_CHECK(esp_wifi_start()); //
 
   // ESP-NOW stuff
-
-
+    attack_success();
+  
   printf("Initializing ESP-NOW");
   ESP_ERROR_CHECK(esp_now_init());
-  ESP_ERROR_CHECK(esp_now_add_peer(&peer)); //add peer as a peer
-
+  ESP_ERROR_CHECK(esp_now_add_peer(&peer)); //add peer as a peer. This ensures that the callback is called when we recv an ESPNOW packet
   ESP_ERROR_CHECK(esp_wifi_get_mac(WIFI_IF_STA, mac));
-
   printf("MAC: %x:%x:%x:%x:%x:%x\n", mac[0], mac[1], mac[2], mac[3], mac[4], mac[5]);
   
-  fuzz();
+  ESP_ERROR_CHECK(esp_now_register_recv_cb(recv_cb)); //this is probably an interrupt. 
+    for(;;){
+
+    }
+
+
+
+  ESP_ERROR_CHECK(esp_now_unregister_recv_cb());
   
   printf("Deinitializing ESP-NOW");
   ESP_ERROR_CHECK(esp_now_deinit());
@@ -65,6 +75,8 @@ void app_main() {
   ESP_ERROR_CHECK(esp_wifi_stop());
   printf("Deinitializing Wifi\n");
   ESP_ERROR_CHECK(esp_wifi_deinit()); 
+
+  //attack_success(); //prevents the compiler from complaining. Never reached due to infinite loop
 
   vTaskDelay(1000 / portTICK_PERIOD_MS);
 
