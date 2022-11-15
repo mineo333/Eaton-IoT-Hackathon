@@ -19,13 +19,20 @@ void attack_success(){
     printf("Reached Buffer Overflow Target!");
 }
 
-void recv_cb(const uint8_t *mac_addr, const uint8_t *data, int data_len){ 
+void recv_cb(const uint8_t *mac_addr, const uint8_t *data, int data_len) {
 
-    char buf[8];
-    printf("MAC: %x:%x:%x:%x:%x:%x\n", mac_addr[0], mac_addr[1], mac_addr[2], mac_addr[3], mac_addr[4], mac_addr[5]);
+  char buf[8];
+  printf("MAC: %x:%x:%x:%x:%x:%x\n", mac_addr[0], mac_addr[1], mac_addr[2],
+         mac_addr[3], mac_addr[4], mac_addr[5]);
 
-    memcpy(buf, data, data_len); //induce a buffer overflow 
+  printf("len: %d\n", data_len);
 
+  // memcpy(buf, data, data_len); //induce a buffer overflow
+
+  for (int i = 0; i < 0x20; i++) {
+    //*((char *)buf + i) = *(data + i);
+    printf("%x\n", *((char *)buf + i));
+  }
 }
 
 void app_main() {

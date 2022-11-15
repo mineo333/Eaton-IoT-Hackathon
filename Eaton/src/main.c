@@ -16,17 +16,25 @@
 
 const uint8_t peer_addr[] = {0xff, 0xff, 0xff, 0xff, 0xff, 0xff};
 
+#define SEND_SIZE 0x20
+#define attack_addr 0x400d61f4
 void fuzz() {
+
+  // int buf[8] = {0};
+  // buf[5] = attack_addr;
   //construct random data
-  uint8_t* random = malloc(50);
-  esp_fill_random(random, 50); 
-  ESP_ERROR_CHECK(esp_now_send(NULL, random, sizeof(random)));
+  uint8_t* random = malloc(SEND_SIZE);
+  esp_fill_random(random, SEND_SIZE); 
+ // ESP_ERROR_CHECK(esp_now_send(peer_addr, (uint8_t*)buf, sizeof(buf)));
+ ESP_ERROR_CHECK(esp_now_send(peer_addr, (uint8_t*)random, SEND_SIZE));
   free(random);
   //NOTE: in a real comprimised environment, peer would be NULL as we would send it to all paired peers
 }
 
+
+
 void app_main() {
-  wifi_init_config_t wifi_conf = WIFI_INIT_CONFIG_DEFAULT();
+    wifi_init_config_t wifi_conf = WIFI_INIT_CONFIG_DEFAULT();
 
     esp_now_peer_info_t peer = {0};
     memcpy(&peer.peer_addr, &peer_addr, sizeof(peer_addr));
