@@ -16,7 +16,7 @@
 
 const uint8_t peer_addr[] = {0xff, 0xff, 0xff, 0xff, 0xff, 0xff};
 
-#define SEND_SIZE 0x20
+#define SEND_SIZE 150
 #define attack_addr 0x400d61f4
 void fuzz() {
 
